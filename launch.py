@@ -29,7 +29,7 @@ async def status_task():
         await bot.change_presence(activity=discord.Game(name=f'&help | {str(len(bot.guilds))} guilds', type=2))
         await asyncio.sleep(30)
         
-async def schedule_task():
+async def ctd_task():
     futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
     nowdate = datetime.now()
     count = int((futuredate-nowdate).total_seconds())
@@ -50,7 +50,7 @@ async def on_ready():
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
-    schedule.every().day.at("05:55").do(task)
+    schedule.every().day.at("05:56").do(ctd_task)
 
     while True:
         schedule.run_pending()
