@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 import datetime
-
+import schedule
 import time
 import subprocess
 import traceback
