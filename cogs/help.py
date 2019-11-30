@@ -17,13 +17,13 @@ import config
 class Help:
     def __init__(self, bot):
         self.bot = bot
-        self.prefix = 'b.'
+        self.prefix = '&'
 
     @commands.command(aliases=['cmds', 'commands', 'Help'])
     async def help(self, ctx):
-        embed = discord.Embed(description='Welcome to **Boost Manager** Here is a list of commands that you are able to use.\n\n'\
-        f'`{self.prefix}rewards` - **View rewards for boosting this server.**\n'\
-        f'`{self.prefix}setrewards <details>` - **Set rewards for this server** - Admin Only\n'\
+        embed = discord.Embed(colour=0x9c0101, description='Hello, I am **Santa**! Here is a list of commands that you are able to use.\n\n'\
+        f'`{self.prefix}countdown` - **View the countdown until Christmas**\n'\
+        f'`{self.prefix}heartbeats` - **View how many days until Christmas**\n'\
         f'`{self.prefix}status` - **View boost status for this server.**\n'\
         f'`{self.prefix}user <@user>` - **Check boost stats for a user**\n'\
         f'`{self.prefix}boostmessage [message]` - **Set boost message** - Admin Only\n'
