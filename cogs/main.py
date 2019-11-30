@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import datetime
+from datetime import datetime
 import requests
 import random
 import math
@@ -21,18 +21,29 @@ class Main:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['rewards'])
-    async def help(self, ctx):
-        embed = discord.Embed(description='Welcome to **Boost Manager** Here is a list of commands that you are able to use.\n\n'\
-        f'`{self.prefix}rewards` - **View rewards for boosting this server.**\n'\
-        f'`{self.prefix}setrewards <details>` - **Set rewards for this server** - Admin Only\n'\
-        f'`{self.prefix}status` - **View boost status for this server.**\n'\
-        f'`{self.prefix}user <@user>` - **Check boost stats for a user**\n'\
-        f'`{self.prefix}boostmessage [message]` - **Set boost message** - Admin Only\n'
-        )
-        #embed.set_image(url="https://i.ibb.co/chxrYtn/restaurantbanner.png")
-        embed.set_footer(text="Arguments are inside [] and <>. [] is optional and <> is required. Do not include [] or <> in the command.")
-        await ctx.send(embed=embed)
+    @commands.command(aliases=['countdown', 'christmascountdown'])
+    async def cc(self, ctx):
+        futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
+        nowdate = datetime.now()
+        count = int((futuredate-nowdate).total_seconds())
+        days = count//86400
+        hours = (count-days*86400)//3600
+        minutes = (count-days*86400-hours*3600)//60
+        seconds = count-days*86400-hours*3600-minutes*60
+        embed = discord.Embed(colour=0x9c0101, description=f"There are...\n**{days}** days\n**{hours}** hours\n**{minutes}** minutes\n**{seconds}** seconds\n... until Christmas!")
+        embed.set_author(icon_url=ctx.me.avatar_url_as(format='png'), name="Countdown to Christmas")
+        await ctx.send(embed=cc)
+
+    @commands.command()
+    async def heartbeats(self, ctx):
+        futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
+        nowdate = datetime.now()
+        count = int((futuredate-nowdate).total_seconds())
+        heartbeats = count//60*80
+        embed = discord.Embed(colour=0x9c0101, description=f"Your heart will beat around **{format(heartbeats, ",d")}** times until Christmas!")
+        embed.set_author(icon_url=ctx.me.avatar_url_as(format='png'), name="Countdown to Christmas")
+        await ctx.send(embed=cc)
+
 
 
 def setup(bot):
