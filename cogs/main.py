@@ -40,7 +40,7 @@ class Main(commands.Cog):
                 embed.set_image(url=rnd(randomimg.imgs))
             await channel.send(embed=embed)
 
-    schedule.every().day.at("04:07").do(task)
+    schedule.every().day.at("04:12").do(task)
 
     while True:
         schedule.run_pending()
