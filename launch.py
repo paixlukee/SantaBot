@@ -11,7 +11,7 @@ import requests
 import random
 from random import choice as rnd
 from random import choice, randint
-
+import threading
 import aiohttp
 import asyncio
 import sys
@@ -58,7 +58,7 @@ async def on_ready():
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
-    schedule.every().day.at("17:49").do(bot.loop.call_soon_threadsafe, ctd_task)
+    schedule.every().day.at("17:51").do(bot.loop.call_soon_threadsafe, ctd_task)
 
 @bot.event
 async def on_guild_join(guild):
