@@ -5,6 +5,7 @@ import requests
 import random
 import math
 import time
+import schedule
 import randomimg
 import randomsong
 from discord.ext.commands import errors, converter
@@ -21,9 +22,29 @@ import pymongo
 client = MongoClient(config.mongo_client)
 db = client['siri']
 
+
 class Main(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        
+    def task():
+        futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
+        nowdate = datetime.now()
+        count = int((futuredate-nowdate).total_seconds())
+        days = count/86400
+        posts = db.utility.find_one({"utility": "santaconf"})
+        for x in posts['channel']:
+            channel = bot.get_channel(int(x))
+            embed = discord.Embed(colour=0x9c0101, description=f"There are currently **{days}** until Christmas!")
+            if x in posts['images']:
+                embed.set_image(url=rnd(randomimg.imgs))
+            await channel.send(embed=embed)
+
+    schedule.every().day.at("04:07").do(task)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
     @commands.command(aliases=['countdown', 'christmascountdown'])
     async def cc(self, ctx):
@@ -76,7 +97,8 @@ class Main(commands.Cog):
                 await ctx.send("Setup canceled.")
             else:
                 try:
-                    channel = ch.content.replace("<#", "").replace(">","")
+                    chnlcheck = ch.content.replace("<#", "").replace(">","")
+                    channel = ctx.guild.get_channel(chnlcheck).id
                     db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel}})
                     embed = discord.Embed(colour=0x9c0101, description="Nice! Would you like to have random images added to the daily countdown message? Only reply with **yes** or **no**.\n\nExample:")
                     embed.set_image(url="https://i.imgur.com/WAAaAf5.png")
@@ -111,7 +133,8 @@ class Main(commands.Cog):
                 await ctx.send("Setup canceled.")
             else:
                 try:
-                    channel = ch.content.replace("<#", "").replace(">","")
+                    chnlcheck = ch.content.replace("<#", "").replace(">","")
+                    channel = ctx.guild.get_channel(chnlcheck).id
                     db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel}})
                     embed = discord.Embed(colour=0x9c0101, description="Channel removed from Christmas Countdown reminders.")                 
                     await ctx.send(embed=embed)
