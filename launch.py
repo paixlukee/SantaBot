@@ -44,17 +44,21 @@ async def ctd_task():
             pass
         await channel.send(embed=embed)
 
+schedstop = threading.Event()
+async def timer():
+    while not schedstop.is_set():
+        schedule.run_pending()
+        await time.sleep(1)
+schedthread = threading.Thread(target=timer)
+schedthread.start()
+
 @bot.event
 async def on_ready():
     print('\x1b[1;34;40m' + 'Discord Version: ' + '\x1b[0m' + f'{discord.__version__}\n------')
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
-    await schedule.every().day.at("06:09").do(ctd_task)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    schedule.every().day.at("17:49").do(bot.loop.call_soon_threadsafe, ctd_task)
 
 @bot.event
 async def on_guild_join(guild):
