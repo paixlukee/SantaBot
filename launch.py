@@ -45,9 +45,9 @@ async def ctd_task():
                 else: 
                     pass
                 await channel.send(embed=embed)
-           else:
-               pass
-           asyncio.sleep(0.5)
+         else:
+            pass
+         asyncio.sleep(0.5)
 
 @bot.event
 async def on_ready():
