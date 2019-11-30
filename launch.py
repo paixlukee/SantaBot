@@ -31,7 +31,7 @@ async def status_task():
         
 async def ctd_task():
     while True:
-        if datetime.now().time() == datetime.time.fromisoformat('18:59:00.000001'):
+        if datetime.now().time() == datetime.time.fromisoformat('19:00:00.000001'):
             futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
             nowdate = datetime.now()
             count = int((futuredate-nowdate).total_seconds())
