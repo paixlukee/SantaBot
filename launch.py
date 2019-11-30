@@ -70,10 +70,10 @@ async def on_message(message):
 
 
 if __name__ == '__main__':
+    bot.remove_command("help")
     bot.load_extension("cogs.bot")
     bot.load_extension("cogs.help")
     bot.load_extension("cogs.main")
-    bot.remove_command("help")
 
 
 bot.run(config.token, bot=True, reconnect=True)
