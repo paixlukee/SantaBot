@@ -27,26 +27,7 @@ class Main(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-    async def task():
-        futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
-        nowdate = datetime.now()
-        count = int((futuredate-nowdate).total_seconds())
-        days = round(count/86400)
-        posts = db.utility.find_one({"utility": "santaconf"})
-        for x in posts['channel']:
-            channel = bot.get_channel(int(x))
-            embed = discord.Embed(colour=0x9c0101, description=f"There are currently **{days}** until Christmas!")
-            if x in posts['images']:
-                embed.set_image(url=rnd(randomimg.imgs))
-            else: 
-                pass
-            await channel.send(embed=embed)
 
-    schedule.every().day.at("04:39").do(task)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
 
     @commands.command(aliases=['countdown', 'christmascountdown'])
     async def cc(self, ctx):
