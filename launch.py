@@ -50,7 +50,7 @@ async def on_ready():
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
-    schedule.every().day.at("05:56").do(ctd_task)
+    await schedule.every().day.at("06:09").do(ctd_task)
 
     while True:
         schedule.run_pending()
