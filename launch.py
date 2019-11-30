@@ -28,6 +28,21 @@ async def status_task():
     while True:
         await bot.change_presence(activity=discord.Game(name=f'&help | {str(len(bot.guilds))} guilds', type=2))
         await asyncio.sleep(30)
+        
+async def schedule_task():
+    futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
+    nowdate = datetime.now()
+    count = int((futuredate-nowdate).total_seconds())
+    days = round(count/86400)
+    posts = db.utility.find_one({"utility": "santaconf"})
+    for x in posts['channel']:
+        channel = bot.get_channel(int(x))
+        embed = discord.Embed(colour=0x9c0101, description=f"There are currently **{days}** until Christmas!")
+        if x in posts['images']:
+            embed.set_image(url=rnd(randomimg.imgs))
+        else: 
+            pass
+        await channel.send(embed=embed)
 
 @bot.event
 async def on_ready():
@@ -35,6 +50,11 @@ async def on_ready():
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
+    schedule.every().day.at("05:55").do(task)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 @bot.event
 async def on_guild_join(guild):
