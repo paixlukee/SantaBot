@@ -31,7 +31,7 @@ class Main(commands.Cog):
         futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
         nowdate = datetime.now()
         count = int((futuredate-nowdate).total_seconds())
-        days = count/86400
+        days = round(count/86400)
         posts = db.utility.find_one({"utility": "santaconf"})
         for x in posts['channel']:
             channel = bot.get_channel(int(x))
@@ -40,9 +40,9 @@ class Main(commands.Cog):
                 embed.set_image(url=rnd(randomimg.imgs))
             else: 
                 pass
-            await channel.send(embed=embed)
+            #await channel.send(embed=embed)
 
-    schedule.every().day.at("04:16").do(task)
+    schedule.every().day.at("04:17").do(task)
 
     while True:
         schedule.run_pending()
