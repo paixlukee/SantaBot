@@ -111,7 +111,7 @@ class Main(commands.Cog):
                 await ctx.send("Setup canceled.")
             else:
                 try:
-                    channel = ch.content[0].id
+                    channel = ch.content.replace("<#", "").replace(">","")
                     db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel}})
                     embed = discord.Embed(colour=0x9c0101, description="Channel removed from Christmas Countdown reminders.")                 
                     await ctx.send(embed=embed)
