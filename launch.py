@@ -30,33 +30,24 @@ async def status_task():
         await asyncio.sleep(30)
         
 async def ctd_task():
-    futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
-    nowdate = datetime.now()
-    count = int((futuredate-nowdate).total_seconds())
-    days = round(count/86400)
-    posts = db.utility.find_one({"utility": "santaconf"})
-    for x in posts['channel']:
-        channel = bot.get_channel(int(x))
-        embed = discord.Embed(colour=0x9c0101, description=f"There are currently **{days}** until Christmas!")
-        if x in posts['images']:
-            embed.set_image(url=rnd(randomimg.imgs))
-        else: 
-            pass
-        await channel.send(embed=embed)
-
-#schedstop = threading.Event()
-#async def timer():
-    #while not schedstop.is_set():
-        #schedule.run_pending()
-        #await time.sleep(1)
-#schedthread = threading.Thread(target=timer)
-#schedthread.start()
-
-async def timer():
     while True:
-        schedule.run_pending()
-        time.sleep(1)
-        schedule.every().day.at("17:59").do(await ctd_task())
+        if datetime.now().time() == datetime.time.fromisoformat('00:00:00.000001'):
+            futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
+            nowdate = datetime.now()
+            count = int((futuredate-nowdate).total_seconds())
+            days = round(count/86400)
+            posts = db.utility.find_one({"utility": "santaconf"})
+            for x in posts['channel']:
+                channel = bot.get_channel(int(x))
+                embed = discord.Embed(colour=0x9c0101, description=f"There are currently **{days}** until Christmas!")
+                if x in posts['images']:
+                    embed.set_image(url=rnd(randomimg.imgs))
+                else: 
+                    pass
+                await channel.send(embed=embed)
+           else:
+               pass
+           asyncio.sleep(0.5)
 
 @bot.event
 async def on_ready():
@@ -64,8 +55,7 @@ async def on_ready():
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
-    asyncio.run_coroutine_threadsafe(timer(), bot.loop)
-    #schedule.every().day.at("17:51").do(bot.loop.call_soon_threadsafe, ctd_task)
+    bot.loop.create_task(ctd_task())
 
 @bot.event
 async def on_guild_join(guild):
