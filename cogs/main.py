@@ -76,7 +76,10 @@ class Main(commands.Cog):
                 await ctx.send("Setup canceled.")
             else:
                 try:
+                    print(ch.content)
+                    print(ch.content[0])
                     channel = ch.content[0].id
+                    print(channel)
                     db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel}})
                     embed = discord.Embed(colour=0x9c0101, description="Nice! Would you like to have random images added to the daily countdown message? Only reply with **yes** or **no**.\n\nExample:")
                     embed.set_image(url="https://i.imgur.com/WAAaAf5.png")
