@@ -44,13 +44,19 @@ async def ctd_task():
             pass
         await channel.send(embed=embed)
 
-schedstop = threading.Event()
+#schedstop = threading.Event()
+#async def timer():
+    #while not schedstop.is_set():
+        #schedule.run_pending()
+        #await time.sleep(1)
+#schedthread = threading.Thread(target=timer)
+#schedthread.start()
+
 async def timer():
-    while not schedstop.is_set():
+    while True:
         schedule.run_pending()
-        await time.sleep(1)
-schedthread = threading.Thread(target=timer)
-schedthread.start()
+        time.sleep(1)
+        schedule.every().day.at("17:57").do(await ctd_task())
 
 @bot.event
 async def on_ready():
@@ -58,7 +64,8 @@ async def on_ready():
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
-    schedule.every().day.at("17:51").do(bot.loop.call_soon_threadsafe, ctd_task)
+    asyncio.run_coroutine_threadsafe(timer(), bot.loop)
+    #schedule.every().day.at("17:51").do(bot.loop.call_soon_threadsafe, ctd_task)
 
 @bot.event
 async def on_guild_join(guild):
