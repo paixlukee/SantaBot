@@ -56,7 +56,7 @@ async def timer():
     while True:
         schedule.run_pending()
         time.sleep(1)
-        schedule.every().day.at("17:57").do(await ctd_task())
+        schedule.every().day.at("17:59").do(await ctd_task())
 
 @bot.event
 async def on_ready():
