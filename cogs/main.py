@@ -38,9 +38,11 @@ class Main(commands.Cog):
             embed = discord.Embed(colour=0x9c0101, description=f"There are currently **{days}** until Christmas!")
             if x in posts['images']:
                 embed.set_image(url=rnd(randomimg.imgs))
+            else: 
+                pass
             await channel.send(embed=embed)
 
-    schedule.every().day.at("04:12").do(task)
+    schedule.every().day.at("04:16").do(task)
 
     while True:
         schedule.run_pending()
