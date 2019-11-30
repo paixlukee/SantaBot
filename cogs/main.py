@@ -8,8 +8,8 @@ import time
 import randomimg
 import randomsong
 from discord.ext.commands import errors, converter
-from random import choice, randint
-from random import choice, randint as rnd
+from random import randint
+from random import choice as rnd
 import aiohttp
 import asyncio
 import json
@@ -36,7 +36,7 @@ class Main(commands.Cog):
         seconds = count-days*86400-hours*3600-minutes*60
         embed = discord.Embed(colour=0x9c0101, description=f"There are...\n**{days}** days\n**{hours}** hours\n**{minutes}** minutes\n**{seconds}** seconds\n... until Christmas!")
         embed.set_author(icon_url=ctx.me.avatar_url_as(format='png'), name="Countdown to Christmas")
-        await ctx.send(embed=cc)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def heartbeats(self, ctx):
@@ -47,7 +47,7 @@ class Main(commands.Cog):
         fm = format(heartbeats, ",d")
         embed = discord.Embed(colour=0x9c0101, description=f"Your heart will beat around **{fm}** times until Christmas!")
         embed.set_author(icon_url=ctx.me.avatar_url_as(format='png'), name="Countdown to Christmas")
-        await ctx.send(embed=cc)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def image(self, ctx):
@@ -65,7 +65,7 @@ class Main(commands.Cog):
 
     @commands.command()
     async def setcc(self, ctx):
-        if ctx.author.guild_permissions.manage_server or ctx.author.guild_permissions.manage_channels:
+        if ctx.author.guild_permissions.manage_guild or ctx.author.guild_permissions.manage_channels:
             user = db.utility.find_one({"utility": "santaconf"})
             def check(m):
                 return m.author == ctx.message.author
@@ -100,7 +100,7 @@ class Main(commands.Cog):
 
     @commands.command()
     async def remcc(self, ctx):
-        if ctx.author.guild_permissions.manage_server or ctx.author.guild_permissions.manage_channels:
+        if ctx.author.guild_permissions.manage_guild or ctx.author.guild_permissions.manage_channels:
             user = db.utility.find_one({"utility": "santaconf"})
             def check(m):
                 return m.author == ctx.message.author
