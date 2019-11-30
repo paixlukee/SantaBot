@@ -51,7 +51,7 @@ async def on_guild_join(guild):
             discord.utils.get(server.channels, name="shitposts"),
             guild.get_member(guild.owner.id)
             ]
-    embed = discord.Embed(description="Thank you for adding me! Do `&help` to see a list of my commands. To set up daily countdown messages, do `&cc`.")
+    embed = discord.Embed(description="Thank you for adding me! Do `&help` to see a list of my commands. To set up daily countdown messages, do `&setcc`.")
     embed.set_footer(text="Santa created by lukee#0420 - Thank you for adding me!", icon_url=bot.user.avatar_url)
     for x in targets:
         try:
