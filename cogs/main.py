@@ -77,13 +77,13 @@ class Main(commands.Cog):
             else:
                 try:
                     channel = ch.content[0].id
-                    db.utility.update_one({"utility": "santaconf"}, {"$push":"channels": channel})
+                    db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel})
                     embed = discord.Embed(colour=0x9c0101, description="Nice! Would you like to have random images added to the daily countdown message? Only reply with **yes** or **no**.\n\nExample:")
                     embed.set_image(url="https://i.imgur.com/WAAaAf5.png")
                     await ctx.send(embed=embed)
                     an = await self.bot.wait_for('message', check=check, timeout=60)
                     if an.lower() == 'yes':
-                        db.utility.update_one({"utility": "santaconf"}, {"$push":"channels": channel})
+                        db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel})
                         embed = discord.Embed(colour=0x9c0101, description="And... done! Setup has been completed and I will post a countdown message in that channel every day at 12:00 AM EST.\n\nTo remove this, do `&remcc`.")
                         embed.set_footer(icon_url=ctx.me.avatar_url_as(format='png'), text='Ho ho ho.')
                         await ctx.send(embed=embed)
@@ -112,7 +112,7 @@ class Main(commands.Cog):
             else:
                 try:
                     channel = ch.content[0].id
-                    db.utility.update_one({"utility": "santaconf"}, {"$push":"channels": channel})
+                    db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel})
                     embed = discord.Embed(colour=0x9c0101, description="Channel removed from Christmas Countdown reminders.")                 
                     await ctx.send(embed=embed)
                 except:
