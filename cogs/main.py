@@ -81,6 +81,7 @@ class Main(commands.Cog):
             else:
                 try:
                     chnlcheck = ch.content.replace("<#", "").replace(">","")
+                    print(f"{chnlcheck} -- {ch.content}")
                     channel = ctx.guild.get_channel(chnlcheck).id
                     db.utility.update_one({"utility": "santaconf"}, {"$push":{"channels": channel}})
                     embed = discord.Embed(colour=0x9c0101, description="Nice! Would you like to have random images added to the daily countdown message? Only reply with **yes** or **no**.\n\nExample:")
