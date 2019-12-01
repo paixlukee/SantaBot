@@ -31,10 +31,9 @@ async def status_task():
         
 async def ctd_task():
     while True:
-        if datetime.datetime.now().time() == datetime.time.fromisoformat('19:14:00.000001'):
-            datetime = datetime.datetime
-            futuredate = datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
-            nowdate = datetime.now()
+        if datetime.datetime.now().time() == datetime.time.fromisoformat('19:15:00.000001'):
+            futuredate = datetime.datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
+            nowdate = datetime.datetime.now()
             count = int((futuredate-nowdate).total_seconds())
             days = round(count/86400)
             posts = db.utility.find_one({"utility": "santaconf"})
