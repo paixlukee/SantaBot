@@ -30,7 +30,7 @@ async def status_task():
         
 async def ctd_task():
     while True:
-        if datetime.datetime.now().time() == datetime.time(20,6,0,12345):
+        if datetime.datetime.now().time() == datetime.time(20,7,0,12345):
             futuredate = datetime.datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
             nowdate = datetime.datetime.now()
             count = int((futuredate-nowdate).total_seconds())
@@ -57,6 +57,7 @@ async def on_ready():
     print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + f'Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'r!load all'")
     bot.loop.create_task(status_task())
+    loop = asyncio.get_event_loop()
     r = await loop.run_in_executor(None, ctd_start)
 
 @bot.event
