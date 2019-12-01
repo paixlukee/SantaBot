@@ -30,7 +30,7 @@ async def status_task():
         
 async def ctd_task():
     while True:
-        if datetime.datetime.now().time() == datetime.time(19,35,0,1):
+        if datetime.datetime.now().time() == datetime.time(19,54,0,1):
             futuredate = datetime.datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
             nowdate = datetime.datetime.now()
             count = int((futuredate-nowdate).total_seconds())
@@ -46,7 +46,7 @@ async def ctd_task():
                 await channel.send(embed=embed)
         else:
              pass
-        asyncio.sleep(0.5)
+        #asyncio.sleep(0.5)
 
 @bot.event
 async def on_ready():
