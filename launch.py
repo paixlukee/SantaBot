@@ -16,7 +16,6 @@ import aiohttp
 import asyncio
 import sys
 import json
-from datetime import time as tme
 import config
 
 
@@ -31,7 +30,7 @@ async def status_task():
         
 async def ctd_task():
     while True:
-        if datetime.datetime.now().time() == tme.fromisoformat('19:24:00.000001'):
+        if datetime.datetime.now().time() == datetime.time(19,34,0,000001):
             futuredate = datetime.datetime.strptime('Dec 25 2019  0:00', '%b %d %Y %H:%M')
             nowdate = datetime.datetime.now()
             count = int((futuredate-nowdate).total_seconds())
